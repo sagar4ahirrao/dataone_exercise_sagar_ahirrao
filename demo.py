@@ -1,4 +1,4 @@
-import csv
+import csv, operator
 
 csvfile = open('data.csv')
 data = []
@@ -10,34 +10,24 @@ for row in readCSV:
     data.append([shop_id,price,product])
 
 ch = raw_input("enter 1st: ")
-ch2 = raw_input("enter 2nd: ")
-s=[]
-s1=False
+ch1 = raw_input("enter 2nd: ")
+s={}
 d = {}
 d1 = {}
 for  i in data:
     if i[2] == ch:
         d[i[0]]=i[1]
-    if i[2] == ch2:
+    if i[2] == ch1:
         d1[i[0]]=i[1]
 
-
-# if not s1:
-for i in d:
-    for j in d1:
-        if i == j :
-            s.append([i,d[i]+d1[i]])
-print s
-# if s[0][1] < s[1][1]:
-#     print s[0][0],s[0][1]
-# else:
-#     print s[1][0],s[1][1]
-
-for i in s:
-    print i
-# else:
-#  print "none"
-
-
-
-# print d,d1
+if (d1 and d):
+    for i in d:
+        for j in d1:
+            if i == j :
+                s[i]=d[i]+d1[i]
+    if s:
+        print "shop no",min(s.iteritems(), key=operator.itemgetter(1))[0],"with price",min(s.values())
+    else:
+        print "none"
+else:
+    print "none"
